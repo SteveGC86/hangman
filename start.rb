@@ -7,11 +7,14 @@ response = gets.chomp.downcase
 if response == 'yes'
   game = Game.new
   game.start
+  game.report
 
+  while true
+    game.turn
+    game.report
+  end
   # puts "The word you're trying to guess is: #{game.word}"
 else
   puts "Oh well see you next time."
   return
 end
-
-
