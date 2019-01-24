@@ -26,14 +26,22 @@ class Game
     check = gets.chomp.downcase.to_s
 
     if guess.letter_checker(check, @word)
-      @correct << check
+      Game.won
     else
       @incorrect << check
+    end
+    
+  end
+  
+  def won
+    @correct << check
+    if @correct.length == @word.length
+      puts "Congratulations you guessed the word #{@word}"
+      @playing = false
     end
   end
 
   def report
-    # puts "So far you have guessed #{@correct.count} of #{@word.length } letters - #{@word}"
     puts @cipher.encrypt(@word, @correct)
   end
 end

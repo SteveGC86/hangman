@@ -1,10 +1,11 @@
-require './library'
-require_relative './turn'
+class Library
+  def generate
+    content = File.readlines 'words.txt'
+    word_sampler(content)
+  end
 
-class Cipher
-  def encrypt(word, guessed_letters = [])
-    word.each_char.map do |character|
-      guessed_letters.to_a.include?(character) ? character : '_'
-    end.join
+  def word_sampler(content)
+    content.sample
   end
 end
+
