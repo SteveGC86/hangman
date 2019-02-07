@@ -1,11 +1,15 @@
-class Playing_status
-  attr_accessor :playing
+class PlayingStatus
+  attr_reader :playing
 
   def initialize(status)
     @playing = status
   end
+  
+  def start
+    @playing = true
+  end
 
-  def check
-    @playing
+  def stop
+    @playing = false
   end
 end
