@@ -8,22 +8,14 @@ response = gets.chomp.downcase
 
 if response == 'yes'
   game = Game.new
-  play = Playing_status.new(true)
   game.start
-  @playing = play.check
-  puts "is playing: #{@playing}"
   game.report
-  # while true
-  #   game.turn
-  #   game.report
-  # end 
 
-  while @playing == true
-    puts "start: #{@playing}"
+  while game.continue?
+    puts "start: #{game.continue?}"
     game.turn
     game.won
     game.report
-    break if @playing == false
   end
 
 else

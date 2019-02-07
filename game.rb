@@ -12,14 +12,14 @@ class Game
     @correct = Set.new
     @incorrect = Set.new
     @cipher = Cipher.new
-    play = Playing_status.new(true)
-    @playing = play.check
+    @playing_status = PlayingStatus.new(false)
   end
 
   def start
     puts 'THE GAME HAS STARTED'
     library = Library.new
     @word = library.generate.chomp
+    @playing_status.start
   end
 
   def turn
@@ -33,20 +33,22 @@ class Game
     else
       @incorrect << check
     end
-
   end
 
   def won
-    if @correct.length == @word.length
+    if @correct.to_a.uniq.length == @word.chars.uniq.length
       puts "Congratulations you guessed the word #{@word}"
+      @playing_status.stop
     else
       turn
     end
   end
 
+  def continue?
+    @playing_status.playing
+  end
+
   def report
-    puts "correct #{@correct.length}"
-    puts "report playing: #{@playing}"
     puts @cipher.encrypt(@word, @correct)
   end
 end
