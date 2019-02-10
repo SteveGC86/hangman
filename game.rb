@@ -43,6 +43,15 @@ class Game
       turn
     end
   end
+  
+  def lost
+    if @incorrect.length >= 5
+      puts "Sorry too many guesses, the man is hanging"
+      @playing_status.stop
+    else
+      turn
+    end
+  end
 
   def continue?
     @playing_status.playing

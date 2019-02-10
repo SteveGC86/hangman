@@ -12,9 +12,9 @@ if response == 'yes'
   game.report
 
   while game.continue?
-    puts "start: #{game.continue?}"
     game.turn
     game.won
+    game.lost
     game.report
   end
 
