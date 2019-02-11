@@ -33,12 +33,21 @@ class Game
     else
       @incorrect << check
     end
-
   end
 
   def won
-    if @correct.length == @word.length
+    if @correct.to_a.uniq.length == @word.chars.uniq.length
       puts "Congratulations you guessed the word #{@word}"
+      @playing_status.stop
+    else
+      turn
+    end
+  end
+  
+  def lost
+    if @incorrect.length >= 5
+      puts "Sorry too many guesses, the man is hanging"
+      @playing_status.stop
     else
       turn
     end
@@ -48,9 +57,11 @@ class Game
     @playing_status.playing
   end
 
+  def continue?
+    @playing_status.playing
+  end
+
   def report
-    puts "correct #{@correct.length}"
-    puts "report playing: #{@playing_status.playing}"
     puts @cipher.encrypt(@word, @correct)
   end
 end
