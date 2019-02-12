@@ -1,6 +1,5 @@
-equire_relative './game'
+require_relative './game'
 require_relative './turn'
-require_relative './playing_status'
 
 puts "Yo Yo Yo! Welcome to HangMan. If you want to play type 'Yes' or ' No'.
 If you would like to quit type 'quit' at at anytime."

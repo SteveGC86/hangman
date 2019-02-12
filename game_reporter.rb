@@ -1,3 +1,5 @@
+require_relative 'game'
+
 class GameReporter
   def initialize(game)
     @game = game

@@ -3,17 +3,15 @@ require_relative './cipher'
 require_relative './game_reporter'
 require_relative './guess'
 require_relative './turn'
-require_relative './playing_status'
 
 class Game
-  INVALID_ANSWERS_THRESHOLD = 5
+  INVALID_ANSWERS_LIMIT = 5
   attr_reader :word
 
   def initialize
     @correct = []
     @incorrect = []
     @cipher = Cipher.new
-    @playing_status = PlayingStatus.new(false)
     @reporter = GameReporter.new(self)
   end
 
@@ -21,7 +19,6 @@ class Game
     puts 'THE GAME HAS STARTED'
     library = Library.new
     @word = library.generate.chomp
-    @playing_status.start
   end
 
   def turn
@@ -29,7 +26,7 @@ class Game
 
     guess = Guess.new
     check = gets.chomp.downcase.to_s
-
+    
     if guess.letter_checker(check, @word)
       @correct << check unless @correct.include?(check)
     else
@@ -42,11 +39,11 @@ class Game
   end
 
   def lost?
-    @incorrect.length >= INVALID_ANSWERS_THRESHOLD
+    @incorrect.length >= INVALID_ANSWERS_LIMIT
   end
 
   def continue?
-    @playing_status.playing && !lost? && !won?
+    !lost? && !won?
   end
 
   def encrypted_word
