@@ -1,4 +1,4 @@
-require_relative './game'
+equire_relative './game'
 require_relative './turn'
 require_relative './playing_status'
 
@@ -13,11 +13,8 @@ if response == 'yes'
 
   while game.continue?
     game.turn
-    game.won
-    game.lost
     game.report
   end
-
 else
   puts "Oh well see you next time."
   return
