@@ -1,60 +1,53 @@
-require 'set'
 require_relative './library'
 require_relative './cipher'
+require_relative './game_reporter'
 require_relative './guess'
-require_relative './turn'
-require_relative './playing_status'
 
 class Game
+  INVALID_ANSWERS_LIMIT = 5
   attr_reader :word
 
   def initialize
-    @correct = Set.new
-    @incorrect = Set.new
+    @correct = []
+    @incorrect = []
     @cipher = Cipher.new
-    @playing_status = PlayingStatus.new(false)
+    @reporter = GameReporter.new(self)
   end
 
   def start
     puts 'THE GAME HAS STARTED'
     library = Library.new
     @word = library.generate.chomp
-    @playing_status.start
   end
 
   def turn
+    puts "Correct: #{@correct} Incorrect: #{@incorrect}"
     puts "What letter you would like to guess?"
 
     guess = Guess.new
     check = gets.chomp.downcase.to_s
 
     if guess.letter_checker(check, @word)
-      @correct << check
+      @correct << check unless @correct.include?(check)
     else
-      @incorrect << check
+      @incorrect << check unless @incorrect.include?(check)
     end
   end
 
-  def won
-    if @correct.to_a.uniq.length == @word.chars.uniq.length
-      puts "Congratulations you guessed the word #{@word}"
-      @playing_status.stop
-    else
-      turn
-    end
+  def won?
+    @correct.to_a.length == @word.chars.uniq.length
   end
-  
-  def lost
-    if @incorrect.length >= 5
-      puts "Sorry too many guesses, the man is hanging"
-      @playing_status.stop
-    else
-      turn
-    end
+
+  def lost?
+    @incorrect.length >= INVALID_ANSWERS_LIMIT
   end
 
   def continue?
-    @playing_status.playing
+    !lost? && !won?
+  end
+
+  def encrypted_word
+    @cipher.encrypt(@word, @correct)
   end
 
   def continue?
@@ -62,6 +55,7 @@ class Game
   end
 
   def report
-    puts @cipher.encrypt(@word, @correct)
+    system('clear')
+    @reporter.report
   end
 end
