@@ -17,7 +17,7 @@ class Turn
     end
 
     def report
-        # puts "So far you have guessed #{@correct.count} of #{@word.length } letters - #{@word}"
+        # puts "So far you have guessed #{@correct.count} of #{@word.length } letters  #{@word}"
         puts @cipher.encrypt(@word, @correct)
     end
 end
