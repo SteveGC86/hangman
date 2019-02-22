@@ -1,5 +1,3 @@
-require './library'
-require_relative './turn'
 
 class Cipher
   def encrypt(word, guessed_letters = [])
