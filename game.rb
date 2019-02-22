@@ -50,10 +50,6 @@ class Game
     @cipher.encrypt(@word, @correct)
   end
 
-  def continue?
-    @playing_status.playing
-  end
-
   def report
     system('clear')
     @reporter.report
