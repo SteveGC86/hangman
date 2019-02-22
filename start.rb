@@ -1,5 +1,5 @@
 require_relative './game'
-require_relative './turn'
+
 
 puts "Yo Yo Yo! Welcome to HangMan. If you want to play type 'Yes' or ' No'.
 If you would like to quit type 'quit' at at anytime."

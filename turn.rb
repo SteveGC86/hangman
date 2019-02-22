@@ -1,7 +1,3 @@
-require_relative './game'
-require_relative './guess'
-require_relative './cipher'
-
 class Turn
     def turn_check
         puts "What letter you would like to guess?"
