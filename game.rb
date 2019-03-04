@@ -1,3 +1,4 @@
+require "pry"
 require_relative './library'
 require_relative './cipher'
 require_relative './game_reporter'
@@ -35,7 +36,7 @@ class Game
   end
 
   def won?
-    @correct.to_a.length == @word.chars.uniq.length
+    @correct.length == @word.chars.uniq.length
   end
 
   def lost?
