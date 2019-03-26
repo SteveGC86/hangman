@@ -15,7 +15,7 @@ class Game
   end
 
   def start
-    puts 'THE GAME HAS STARTED'
+    puts('THE GAME HAS STARTED')
     library = Library.new
     @word = library.generate.chomp
   end
